@@ -29,6 +29,11 @@ class V1PetStatsController extends Nodal.Controller {
             let prevDate;
             let happiness = 25;
             let hunger = 25;
+            const accessories = {
+              hat: false,
+              necklace: false,
+              balloons: false
+            }
 
             //loop and do all the things
             transactionModels.forEach(model => {
@@ -64,8 +69,13 @@ class V1PetStatsController extends Nodal.Controller {
               // update state based on item bought
               if (itemData.type === 'food') {
                 hunger += itemData.effect * 10
-              } else if (itemData.type === 'accesory') {
+              } else if (itemData.type === 'accessory') {
                 happiness += itemData.effect * 10
+                // check if accessory is valid in inventory
+                let expDate = new Date(date.valueOf() + (7 * 24 * 60 * 60 * 1000));
+                if (new Date().valueOf() <= expDate.valueOf()) {
+                  accessories[itemData.name] = true;
+                }
               } else {
                 happiness += itemData.effect * 10;
                 hunger += itemData.effect * 5;
@@ -74,6 +84,7 @@ class V1PetStatsController extends Nodal.Controller {
               // cap at 100
               if (hunger > 100) hunger = 100;
               if (happiness > 100) happiness = 100;
+
 
               prevDate = date;
             });
@@ -94,6 +105,7 @@ class V1PetStatsController extends Nodal.Controller {
             petModels[0]._data.goal_progress = total;
             petModels[0]._data.happiness = happiness;
             petModels[0]._data.hunger = hunger;
+            petModels[0]._data.accessories = accessories;
 
             this.respond(err || petModels[0], [
               'id',
@@ -103,7 +115,8 @@ class V1PetStatsController extends Nodal.Controller {
               'goal_name',
               'goal_progress',
               'happiness',
-              'hunger'
+              'hunger',
+              'accessories'
             ]);
           });
 
