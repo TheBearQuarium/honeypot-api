@@ -18,7 +18,7 @@
       {"name": "dragon", "model": {"dragon": "dragon"}}
     ],
     "Pet": [
-      {"user_id": 1, "pet_type_id": 1, "name": "pet1", "goal_amt": 100, "goal_name": "Stuff"},
+      {"user_id": 1, "pet_type_id": 1, "name": "THIS IS A TEST", "goal_amt": 100, "goal_name": "Stuff"},
       {"user_id": 1, "pet_type_id": 2, "name": "pet2", "goal_amt": 200, "goal_name": "Things"},
       {"user_id": 1, "pet_type_id": 3, "name": "pet3", "goal_amt": 300, "goal_name": "Cash"},
       {"user_id": 2, "pet_type_id": 1, "name": "pet4", "goal_amt": 100, "goal_name": "Stuff"},
