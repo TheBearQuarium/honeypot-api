@@ -1,0 +1,122 @@
+{
+
+  "migration_id": 2017012423023724,
+
+  "models": {
+
+    "AccessToken": {
+
+      "table": "access_tokens",
+
+      "columns": [
+        {"name": "id", "type": "serial", "properties": {"nullable":false,"primary_key":true,"auto_increment":true}},
+        {"name": "user_id", "type": "int", "properties": {}},
+        {"name": "access_token", "type": "string", "properties": {}},
+        {"name": "token_type", "type": "string", "properties": {}},
+        {"name": "expires_at", "type": "datetime", "properties": {}},
+        {"name": "ip_address", "type": "string", "properties": {}},
+        {"name": "created_at", "type": "datetime", "properties": {}},
+        {"name": "updated_at", "type": "datetime", "properties": {}}
+      ]
+
+    },
+
+    "BankToken": {
+
+      "table": "bank_tokens",
+
+      "columns": [
+        {"name": "id", "type": "serial", "properties": {"nullable":false,"primary_key":true,"auto_increment":true}},
+        {"name": "user_id", "type": "int", "properties": {}},
+        {"name": "type", "type": "string", "properties": {}},
+        {"name": "token", "type": "string", "properties": {}},
+        {"name": "created_at", "type": "datetime", "properties": {}},
+        {"name": "updated_at", "type": "datetime", "properties": {}},
+        {"name": "name", "type": "string", "properties": {"nullable":false}}
+      ]
+
+    },
+
+    "Item": {
+
+      "table": "items",
+
+      "columns": [
+        {"name": "id", "type": "serial", "properties": {"nullable":false,"primary_key":true,"auto_increment":true}},
+        {"name": "pet_type_id", "type": "int", "properties": {}},
+        {"name": "type", "type": "string", "properties": {}},
+        {"name": "name", "type": "string", "properties": {}},
+        {"name": "image", "type": "json", "properties": {}},
+        {"name": "cost", "type": "int", "properties": {}},
+        {"name": "effect", "type": "int", "properties": {}},
+        {"name": "created_at", "type": "datetime", "properties": {}},
+        {"name": "updated_at", "type": "datetime", "properties": {}}
+      ]
+
+    },
+
+    "Pet": {
+
+      "table": "pets",
+
+      "columns": [
+        {"name": "id", "type": "serial", "properties": {"nullable":false,"primary_key":true,"auto_increment":true}},
+        {"name": "user_id", "type": "int", "properties": {}},
+        {"name": "pet_type_id", "type": "int", "properties": {}},
+        {"name": "goal_amt", "type": "int", "properties": {}},
+        {"name": "goal_name", "type": "string", "properties": {}},
+        {"name": "created_at", "type": "datetime", "properties": {}},
+        {"name": "updated_at", "type": "datetime", "properties": {}},
+        {"name": "name", "type": "string", "properties": {"nullable":true}}
+      ]
+
+    },
+
+    "PetType": {
+
+      "table": "pet_types",
+
+      "columns": [
+        {"name": "id", "type": "serial", "properties": {"nullable":false,"primary_key":true,"auto_increment":true}},
+        {"name": "name", "type": "string", "properties": {}},
+        {"name": "model", "type": "json", "properties": {}},
+        {"name": "created_at", "type": "datetime", "properties": {}},
+        {"name": "updated_at", "type": "datetime", "properties": {}}
+      ]
+
+    },
+
+    "Transaction": {
+
+      "table": "transactions",
+
+      "columns": [
+        {"name": "id", "type": "serial", "properties": {"nullable":false,"primary_key":true,"auto_increment":true}},
+        {"name": "user_id", "type": "int", "properties": {}},
+        {"name": "pet_id", "type": "int", "properties": {}},
+        {"name": "item_id", "type": "int", "properties": {}},
+        {"name": "amount", "type": "int", "properties": {}},
+        {"name": "created_at", "type": "datetime", "properties": {}},
+        {"name": "updated_at", "type": "datetime", "properties": {}}
+      ]
+
+    },
+
+    "User": {
+
+      "table": "users",
+
+      "columns": [
+        {"name": "id", "type": "serial", "properties": {"nullable":false,"primary_key":true,"auto_increment":true}},
+        {"name": "email", "type": "string", "properties": {"unique":true}},
+        {"name": "password", "type": "string", "properties": {}},
+        {"name": "username", "type": "string", "properties": {}},
+        {"name": "created_at", "type": "datetime", "properties": {}},
+        {"name": "updated_at", "type": "datetime", "properties": {}}
+      ]
+
+    }
+
+  }
+
+}
