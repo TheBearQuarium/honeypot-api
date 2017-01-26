@@ -71,11 +71,14 @@ class V1PetStatsController extends Nodal.Controller {
                 hunger += itemData.effect * 10
               } else if (itemData.type === 'accessory') {
                 happiness += itemData.effect * 10
+                
                 // check if accessory is valid in inventory
                 let expDate = new Date(date.valueOf() + (7 * 24 * 60 * 60 * 1000));
+
                 if (new Date().valueOf() <= expDate.valueOf()) {
                   accessories[itemData.name] = true;
                 }
+
               } else {
                 happiness += itemData.effect * 10;
                 hunger += itemData.effect * 5;
