@@ -9,7 +9,10 @@
   },
   "dependencies": {
     "bcryptjs": "^2.4.0",
-    "nodal": "0.12.12"
+    "dotenv": "^4.0.0",
+    "nodal": "0.12.12",
+    "plaid": "^1.2.0",
+    "stripe": "^4.15.0"
   },
   "devDependencies": {
     "chai": "~3.5.0",
