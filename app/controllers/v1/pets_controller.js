@@ -17,7 +17,7 @@ class V1PetsController extends Nodal.Controller {
             .join('pet')
             .orderBy('created_at')
             // query for pet id
-            .where({'pet_id__is': petModels[0]._data.id})
+            .where({'pet_id__is': pet._data.id})
             .end((err, transactionModels) => {
               // total for goal_progress
               let total = 0;
