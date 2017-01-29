@@ -1,6 +1,6 @@
 {
 
-  "migration_id": 2017012423023724,
+  "migration_id": 2017012823404104,
 
   "models": {
 
@@ -67,7 +67,8 @@
         {"name": "goal_name", "type": "string", "properties": {}},
         {"name": "created_at", "type": "datetime", "properties": {}},
         {"name": "updated_at", "type": "datetime", "properties": {}},
-        {"name": "name", "type": "string", "properties": {"nullable":true}}
+        {"name": "name", "type": "string", "properties": {"nullable":true}},
+        {"name": "level", "type": "int", "properties": {"nullable":false}}
       ]
 
     },

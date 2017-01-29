@@ -29,8 +29,8 @@ class UsersController extends Nodal.Controller {
 
   create() {
     User.query()
-      .where({ username__is: this.params.body.username})
-      .end(err, modles => {
+      .where({ username__is: this.params.body.username })
+      .end((err, models) => {
         if (models.length) {
           this.respond('username taken')
         } else {
