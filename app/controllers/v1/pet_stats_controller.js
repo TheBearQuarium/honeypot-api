@@ -31,8 +31,11 @@ class V1PetStatsController extends Nodal.Controller {
             let hunger = 25;
             const accessories = {
               hat: false,
+              hatTime: null,
               necklace: false,
-              balloons: false
+              necklaceTime: null,
+              balloons: false,
+              balloonsTime: null,
             }
 
             //loop and do all the things
@@ -77,6 +80,7 @@ class V1PetStatsController extends Nodal.Controller {
 
                 if (new Date().valueOf() <= expDate.valueOf()) {
                   accessories[itemData.name] = true;
+                  accessories[`${itemData.name}Time`] = expDate.valueOf();
                 }
 
               } else {
