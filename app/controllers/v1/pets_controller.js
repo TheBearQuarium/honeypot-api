@@ -93,7 +93,7 @@ class V1PetsController extends Nodal.Controller {
             petModels[0]._data.happiness = happiness;
             petModels[0]._data.hunger = hunger;
 
-            this.respond(err || petModels[0], [
+            this.respond(err || petModels, [
               'id',
               'name',
               'pet_type_id',
