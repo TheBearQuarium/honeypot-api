@@ -1,0 +1,12 @@
+{
+  "extends": "eslint-config-airbnb",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "rules" : {
+    "no-underscore-dangle": 0,
+    "padded-blocks": 0
+    }
+}
