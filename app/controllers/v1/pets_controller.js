@@ -9,6 +9,7 @@ class V1PetsController extends Nodal.Controller {
   index() {
     Pet.query()
       .where(this.params.query)
+      .orderBy('created_at')
       .end((err, petModels) => {
         petModels.forEach(pet => {
           // get total spent on this pet
