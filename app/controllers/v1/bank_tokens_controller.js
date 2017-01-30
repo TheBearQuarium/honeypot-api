@@ -2,7 +2,7 @@
 
 require('dotenv').config();
 const plaid = require('plaid');
-const stripe = require('stripe')('sk_test_XtAMFVO64j1hd1Fiud3lCVdj');
+const stripe = require('stripe')(process.env.STRIPE_SECRET);
 const Nodal = require('nodal');
 const BankToken = Nodal.require('app/models/bank_token.js');
 
@@ -85,6 +85,7 @@ class V1BankTokensController extends Nodal.Controller {
     //   this.respond(err || model);
     //
     // });
+    console.log('hit////////////////////');
     const public_token = this.params.body.public_token;
     const account_id = this.params.body.account_id;
     const user_id = this.params.body.user_id;
@@ -111,7 +112,8 @@ class V1BankTokensController extends Nodal.Controller {
                 name: name,
                 token: customer.id
               }
-              BankToken.update(context.params.route.id, context.params.body, (err, model) => {
+              console.log('PAramaSSS: ', context.params.body);
+              BankToken.update(context.params.route.id, newToken, (err, model) => {
                 context.respond(err || model);
               });
             }
