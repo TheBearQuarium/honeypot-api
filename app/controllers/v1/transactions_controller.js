@@ -1,6 +1,6 @@
 'use strict';
 
-const stripe = require('stripe')('sk_test_XtAMFVO64j1hd1Fiud3lCVdj');
+const stripe = require('stripe')(process.env.STRIPE_SECRET);
 const Nodal = require('nodal');
 const Transaction = Nodal.require('app/models/transaction.js');
 
