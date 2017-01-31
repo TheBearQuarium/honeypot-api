@@ -42,68 +42,68 @@ class V1BankTokensController extends Nodal.Controller {
     //
     //   });
 
-    var context = this;
+    const context = this;
 
     plaidClient.exchangeToken(public_token, account_id, function(err, res) {
-        if (err != null) {
-          console.log(err);
+      if (err != null) {
+        console.log(err);
+      } else {
+        const access_token = res.access_token;
+        const bank_account_token = res.stripe_bank_account_token;
+        if (type === 'checking') {
+          stripe.customers.create({
+            source: bank_account_token
+          }, function (err, customer) {
+            if (err) {
+              console.log(err);
+            } else {
+              const newToken = {
+                user_id: user_id,
+                type: type,
+                name: name,
+                token: customer.id,
+              }
+              BankToken.create(newToken, (err, model) => {
+                context.respond(err || model);
+              });
+            }
+          });
         } else {
-          const access_token = res.access_token;
-          const bank_account_token = res.stripe_bank_account_token;
-          if (type === 'checking') {
-            stripe.customers.create({
-              source: bank_account_token
-            }, function(err, customer) {
-              if (err) {
-                console.log(err);
-              } else {
-                const newToken = {
-                  user_id: user_id,
-                  type: type,
-                  name: name,
-                  token: customer.id,
-                }
-                BankToken.create(newToken, (err, model) => {
-                  context.respond(err || model);
-                });
-              }
-            });
-          } else {
-            stripe.accounts.create({
-              managed: true,
-              country: 'US',
-              external_account: bank_account_token,
-              legal_entity: {
-                dob: {
-                  day: 26,
-                  month: 2,
-                  year: 1992,
-                },
-                first_name: 'Connor',
-                last_name: 'Parsons',
-                type: 'individual',
+          stripe.accounts.create({
+            managed: true,
+            country: 'US',
+            external_account: bank_account_token,
+            legal_entity: {
+              dob: {
+                day: 26,
+                month: 2,
+                year: 1992,
               },
-              tos_acceptance: {
-                date: Math.floor(Date.now() / 1000),
-                ip: '98.172.185.234',
-              },
-            }, function (err, account) {
-              if (err) {
-                console.log(err);
-              } else {
-                const newToken = {
-                  user_id: user_id,
-                  type: type,
-                  name: name,
-                  token: account.id
-                }
-                BankToken.update(context.params.route.id, newToken, (err, model) => {
-                  context.respond(err || model);
-                });
+              first_name: 'Connor',
+              last_name: 'Parsons',
+              type: 'individual',
+            },
+            tos_acceptance: {
+              date: Math.floor(Date.now() / 1000),
+              ip: '98.172.185.234',
+            },
+          }, function (err, account) {
+            if (err) {
+              console.log(err);
+            } else {
+              const newToken = {
+                user_id: user_id,
+                type: type,
+                name: name,
+                token: account.id
               }
-            });
-          }
+              BankToken.create(newToken, (err, model) => {
+                context.respond(err || model);
+              });
+            }
+          });
         }
+      }
     });
   }
   update() {
@@ -118,68 +118,68 @@ class V1BankTokensController extends Nodal.Controller {
     const type = this.params.body.type;
     const name = this.params.body.name;
 
-    var context = this;
+    const context = this;
 
     plaidClient.exchangeToken(public_token, account_id, function(err, res) {
-        if (err != null) {
-          console.log(err);
+      if (err != null) {
+        console.log(err);
+      } else {
+        const access_token = res.access_token;
+        const bank_account_token = res.stripe_bank_account_token;
+        if (type === 'checking') {
+          stripe.customers.create({
+            source: bank_account_token
+          }, function (err, customer) {
+            if (err) {
+              console.log(err);
+            } else {
+              const newToken = {
+                user_id: user_id,
+                type: type,
+                name: name,
+                token: customer.id,
+              }
+              BankToken.update(context.params.route.id, newToken, (err, model) => {
+                context.respond(err || model);
+              });
+            }
+          });
         } else {
-          const access_token = res.access_token;
-          const bank_account_token = res.stripe_bank_account_token;
-          if (type === 'checking') {
-            stripe.customers.create({
-              source: bank_account_token
-            }, function(err, customer) {
-              if (err) {
-                console.log(err);
-              } else {
-                const newToken = {
-                  user_id: user_id,
-                  type: type,
-                  name: name,
-                  token: customer.id,
-                }
-                BankToken.update(context.params.route.id, newToken, (err, model) => {
-                  context.respond(err || model);
-                });
-              }
-            });
-          } else {
-            stripe.accounts.create({
-              managed: true,
-              country: 'US',
-              external_account: bank_account_token,
-              legal_entity: {
-                dob: {
-                  day: 26,
-                  month: 2,
-                  year: 1992,
-                },
-                first_name: 'Connor',
-                last_name: 'Parsons',
-                type: 'individual',
+          stripe.accounts.create({
+            managed: true,
+            country: 'US',
+            external_account: bank_account_token,
+            legal_entity: {
+              dob: {
+                day: 26,
+                month: 2,
+                year: 1992,
               },
-              tos_acceptance: {
-                date: Math.floor(Date.now() / 1000),
-                ip: '98.172.185.234',
-              },
-            }, function (err, account) {
-              if (err) {
-                console.log(err);
-              } else {
-                const newToken = {
-                  user_id: user_id,
-                  type: type,
-                  name: name,
-                  token: account.id,
-                }
-                BankToken.update(context.params.route.id, newToken, (err, model) => {
-                  context.respond(err || model);
-                });
+              first_name: 'Connor',
+              last_name: 'Parsons',
+              type: 'individual',
+            },
+            tos_acceptance: {
+              date: Math.floor(Date.now() / 1000),
+              ip: '98.172.185.234',
+            },
+          }, function (err, account) {
+            if (err) {
+              console.log(err);
+            } else {
+              const newToken = {
+                user_id: user_id,
+                type: type,
+                name: name,
+                token: account.id,
               }
-            });
-          }
+              BankToken.update(context.params.route.id, newToken, (err, model) => {
+                context.respond(err || model);
+              });
+            }
+          });
         }
+      }
     });
   }
 
