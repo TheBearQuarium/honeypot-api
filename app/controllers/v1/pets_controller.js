@@ -1,3 +1,4 @@
+/* eslint no-param-reassign: ["error", { "props": false }] */
 'use strict';
 
 const Nodal = require('nodal');
@@ -9,17 +10,18 @@ class V1PetsController extends Nodal.Controller {
   index() {
     Pet.query()
       .where(this.params.query)
+      .orderBy('created_at')
       .end((err, petModels) => {
-        petModels.forEach(pet => {
-          // get total spent on this pet
-          Transaction.query()
-            .join('item')
-            .join('pet')
-            .orderBy('created_at')
-            // query for pet id
-            .where({'pet_id__is': pet._data.id})
-            .end((err, transactionModels) => {
-              // total for goal_progress
+        // get total spent by this user
+        Transaction.query()
+          .join('item')
+          .join('pet')
+          .orderBy('created_at')
+          .where(this.params.query)
+          .end((error, transactionModels) => {
+            // total for goal_progress
+            petModels.forEach(pet => {
+              console.log('new pet loop!')
               let total = 0;
 
               // levels for happiness/hunger
@@ -27,25 +29,28 @@ class V1PetsController extends Nodal.Controller {
               let happiness = 25;
               let hunger = 25;
 
-              //loop and do all the things
+              // loop and do all the things
               transactionModels.forEach(model => {
+                console.log('new transaction loop!')
+                console.log(hunger, happiness, total);
+                if (model._data.pet_id !== pet._data.id) { return; }
                 // add amount spent to total
-                total += model._data.amount
+                total += model._data.amount;
 
                 // calculate hunger/happiness levels
-                let itemData = model._joinsCache.item._data;
-                let petData = model._joinsCache.pet._data;
-                let data = model._data
+                const itemData = model._joinsCache.item._data;
+                const petData = model._joinsCache.pet._data;
+                const data = model._data;
 
-                let date = new Date(data.created_at);
+                const date = new Date(data.created_at);
                 // first iteration - start at pet creation
                 if (!prevDate) prevDate = new Date(petData.created_at);
 
                 // get time between interactions
-                let diff = date - prevDate;
+                const diff = date - prevDate;
 
                 // turn into hours
-                let hh = Math.floor(diff / 1000 / 60 / 60);
+                const hh = Math.floor(diff / 1000 / 60 / 60);
 
                 // reduce hunger and happiness by time
                 if (hh > 0) {
@@ -59,10 +64,9 @@ class V1PetsController extends Nodal.Controller {
 
                 // update state based on item bought
                 if (itemData.type === 'food') {
-                  hunger += itemData.effect * 10
+                  hunger += itemData.effect * 10;
                 } else if (itemData.type === 'accessory') {
-                  happiness += itemData.effect * 10
-
+                  happiness += itemData.effect * 10;
                 } else {
                   happiness += itemData.effect * 10;
                   hunger += itemData.effect * 5;
@@ -71,15 +75,13 @@ class V1PetsController extends Nodal.Controller {
                 // cap at 100
                 if (hunger > 100) hunger = 100;
                 if (happiness > 100) happiness = 100;
-
-
                 prevDate = date;
               });
 
               // run one last subtraction from current date
-              let date = new Date();
-              let diff = date - prevDate;
-              let hh = Math.floor(diff / 1000 / 60 / 60);
+              const date = new Date();
+              const diff = date - prevDate;
+              const hh = Math.floor(diff / 1000 / 60 / 60);
               if (hh > 0) {
                 hunger -= hh * 2;
                 happiness -= hh * 2;
@@ -102,18 +104,18 @@ class V1PetsController extends Nodal.Controller {
                   'goal_name',
                   'goal_progress',
                   'happiness',
-                  'hunger'
+                  'hunger',
                 ]);
               }
-            });
-        });
-      });
+            })
 
+          });
+      });
   }
 
   show() {
     Pet.find(this.params.route.id, (err, model) => {
-      this.respond(err ||  model );
+      this.respond(err || model);
 
     });
 

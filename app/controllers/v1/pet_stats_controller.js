@@ -1,3 +1,5 @@
+/* eslint no-param-reassign: ["error", { "props": false }] */
+
 'use strict';
 
 const Nodal = require('nodal');
@@ -20,8 +22,8 @@ class V1PetStatsController extends Nodal.Controller {
           .join('pet')
           .orderBy('created_at')
           // query for pet id
-          .where({'pet_id__is': petModels[0]._data.id})
-          .end((err, transactionModels) => {
+          .where({ pet_id__is: petModels[0]._data.id })
+          .end((error, transactionModels) => {
             // total for goal_progress
             let total = 0;
 
@@ -36,28 +38,28 @@ class V1PetStatsController extends Nodal.Controller {
               necklaceTime: null,
               balloons: false,
               balloonsTime: null,
-            }
+            };
 
-            //loop and do all the things
+            // loop and do all the things
             transactionModels.forEach(model => {
               // add amount spent to total
-              total += model._data.amount
+              total += model._data.amount;
 
 
               // calculate hunger/happiness levels
-              let itemData = model._joinsCache.item._data;
-              let petData = model._joinsCache.pet._data;
-              let data = model._data
+              const itemData = model._joinsCache.item._data;
+              const petData = model._joinsCache.pet._data;
+              const data = model._data;
 
-              let date = new Date(data.created_at);
+              const date = new Date(data.created_at);
               // first iteration - start at pet creation
               if (!prevDate) prevDate = new Date(petData.created_at);
 
               // get time between interactions
-              let diff = date - prevDate;
+              const diff = date - prevDate;
 
               // turn into hours
-              let hh = Math.floor(diff / 1000 / 60 / 60);
+              const hh = Math.floor(diff / 1000 / 60 / 60);
 
               // reduce hunger and happiness by time
               if (hh > 0) {
@@ -71,12 +73,12 @@ class V1PetStatsController extends Nodal.Controller {
 
               // update state based on item bought
               if (itemData.type === 'food') {
-                hunger += itemData.effect * 10
+                hunger += itemData.effect * 10;
               } else if (itemData.type === 'accessory') {
-                happiness += itemData.effect * 10
+                happiness += itemData.effect * 10;
 
                 // check if accessory is valid in inventory
-                let expDate = new Date(date.valueOf() + (7 * 24 * 60 * 60 * 1000));
+                const expDate = new Date(date.valueOf() + (7 * 24 * 60 * 60 * 1000));
 
                 if (new Date().valueOf() <= expDate.valueOf()) {
                   accessories[itemData.name] = true;
@@ -97,9 +99,9 @@ class V1PetStatsController extends Nodal.Controller {
             });
 
             // run one last subtraction from current date
-            let date = new Date();
-            let diff = date - prevDate;
-            let hh = Math.floor(diff / 1000 / 60 / 60);
+            const date = new Date();
+            const diff = date - prevDate;
+            const hh = Math.floor(diff / 1000 / 60 / 60);
             if (hh > 0) {
               hunger -= hh * 2;
               happiness -= hh * 2;
@@ -124,14 +126,12 @@ class V1PetStatsController extends Nodal.Controller {
               'happiness',
               'hunger',
               'accessories',
-              'level'
+              'level',
             ]);
           });
 
       });
   }
-
-
 
   post() {
 
