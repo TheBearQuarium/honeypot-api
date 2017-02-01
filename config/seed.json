@@ -335,7 +335,7 @@
       {"pet_type_id": 2, "type": "treat", "name": "ice cream", "image": {"src": "http://res.cloudinary.com/bearquarium/image/upload/c_scale,w_150/v1485642570/ice_cream_hu97ng.png"}, "cost": 75, "effect": 3},
       {"pet_type_id": 3, "type": "treat", "name": "coffee", "image": {"src": "http://res.cloudinary.com/bearquarium/image/upload/c_scale,w_150/v1485639271/coffee_fwcpgv.png"}, "cost": 25, "effect": 1},
       {"pet_type_id": 3, "type": "treat", "name": "chips", "image": {"src": "http://res.cloudinary.com/bearquarium/image/upload/c_scale,w_150/v1485644733/chips_bmzma3.png"}, "cost": 50, "effect": 2},
-      {"pet_type_id": 3, "type": "treat", "name": "ice cream", "image": {"src": "http://res.cloudinary.com/bearquarium/image/upload/c_scale,w_150/v1485642570/ice_cream_hu97ng.png"}, "cost": 75, "effect": 3}
+      {"pet_type_id": 3, "type": "treat", "name": "ice cream", "image": {"src": "http://res.cloudinary.com/bearquarium/image/upload/c_scale,w_150/v1485642570/ice_cream_hu97ng.png"}, "cost": 75, "effect": 3},
       {"pet_type_id": 99, "type": "food", "name": "poison", "image": {"src": "test"}, "cost": 0, "effect": -10},
       {"pet_type_id": 1, "type": "food", "name": "bait", "image": {"src": "test"}, "cost": 500, "effect": 5},
       {"pet_type_id": 2, "type": "food", "name": "bait", "image": {"src": "test"}, "cost": 500, "effect": 5},
