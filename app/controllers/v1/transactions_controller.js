@@ -46,9 +46,7 @@ class V1TransactionsController extends Nodal.Controller {
         if (total >= 500) {
           newBody.body.pending = false;
           transactionModels.forEach(item => {
-            console.log('what needs to change? ', item._data);
             Transaction.update(item._data.id, { pending: false }, (err, model) => {
-              console.log('new model: ', model);
               this.respond(err || model);
             });
           });
@@ -57,13 +55,13 @@ class V1TransactionsController extends Nodal.Controller {
             currency: 'usd',
             customer: checking,
           });
-          stripe.transfers.create({
-            amount: total,
-            currency: 'usd',
-            destination: 'default_for_currency',
-          },
-            { stripe_account: savings }
-          );
+          // stripe.transfers.create({
+          //   amount: total,
+          //   currency: 'usd',
+          //   destination: 'default_for_currency',
+          // },
+          //   { stripe_account: savings }
+          // );
         }
       }
       console.log('what we create with: ', newBody.body);
