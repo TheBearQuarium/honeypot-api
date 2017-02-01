@@ -270,7 +270,8 @@
       {"username": "TestUser6", "email": "TestUser@6.com", "password": "Password6"},
       {"username": "TestUser7", "email": "TestUser@7.com", "password": "Password7"},
       {"username": "TestUser8", "email": "TestUser@8.com", "password": "Password8"},
-      {"username": "TestUser9", "email": "TestUser@9.com", "password": "Password9"}
+      {"username": "TestUser9", "email": "TestUser@9.com", "password": "Password9"},
+      {"username": "BadUser", "email":"bad@bad.bad", "password": "theworst"}
     ],
     "PetType": [
       {"name": "bear", "model": {"bear": "bear"}},
@@ -304,7 +305,8 @@
       {"user_id": 8, "pet_type_id": 3, "name": "pet24", "goal_amt": 300, "goal_name": "Cash"},
       {"user_id": 9, "pet_type_id": 1, "name": "pet25", "goal_amt": 100, "goal_name": "Stuff"},
       {"user_id": 9, "pet_type_id": 2, "name": "pet26", "goal_amt": 200, "goal_name": "Things"},
-      {"user_id": 9, "pet_type_id": 3, "name": "pet27", "goal_amt": 300, "goal_name": "Cash"}
+      {"user_id": 9, "pet_type_id": 3, "name": "pet27", "goal_amt": 300, "goal_name": "Cash"},
+      {"user_id": 10, "pet_type_id": 1, "name": "Sad Bear", "goal_amt": 100, "goal_name": "Stuff"}
     ],
     "Item": [
       {"pet_type_id": 1, "type": "food", "name": "berries", "image": {"src": "http://res.cloudinary.com/bearquarium/image/upload/c_scale,w_150/v1485630957/berries_yonlsl.png"}, "cost": 10, "effect": 1},
@@ -334,6 +336,12 @@
       {"pet_type_id": 3, "type": "treat", "name": "coffee", "image": {"src": "http://res.cloudinary.com/bearquarium/image/upload/c_scale,w_150/v1485639271/coffee_fwcpgv.png"}, "cost": 25, "effect": 1},
       {"pet_type_id": 3, "type": "treat", "name": "chips", "image": {"src": "http://res.cloudinary.com/bearquarium/image/upload/c_scale,w_150/v1485644733/chips_bmzma3.png"}, "cost": 50, "effect": 2},
       {"pet_type_id": 3, "type": "treat", "name": "ice cream", "image": {"src": "http://res.cloudinary.com/bearquarium/image/upload/c_scale,w_150/v1485642570/ice_cream_hu97ng.png"}, "cost": 75, "effect": 3}
+      {"pet_type_id": 99, "type": "food", "name": "poison", "image": {"src": "test"}, "cost": 0, "effect": -10},
+      {"pet_type_id": 1, "type": "food", "name": "bait", "image": {"src": "test"}, "cost": 500, "effect": 5},
+      {"pet_type_id": 2, "type": "food", "name": "bait", "image": {"src": "test"}, "cost": 500, "effect": 5},
+      {"pet_type_id": 3, "type": "food", "name": "bait", "image": {"src": "test"}, "cost": 500, "effect": 5}
+
+
     ],
     "Transaction": [
       {"user_id": 1, "pet_id": 1, "item_id": 1, "pending": true, "amount": 5},
@@ -514,7 +522,9 @@
       {"user_id": 9, "pet_id": 26, "item_id": 15, "pending": true, "amount": 15},
       {"user_id": 9, "pet_id": 27, "item_id": 16, "pending": true, "amount": 5},
       {"user_id": 9, "pet_id": 27, "item_id": 17, "pending": true, "amount": 10},
-      {"user_id": 9, "pet_id": 27, "item_id": 18, "pending": true, "amount": 15}
+      {"user_id": 9, "pet_id": 27, "item_id": 18, "pending": true, "amount": 15},
+
+      {"user_id": 10, "pet_id": 28, "item_id": 19, "pending": true, "amount": 0}
     ]
   }
 
