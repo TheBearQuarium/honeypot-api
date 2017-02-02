@@ -304,7 +304,7 @@
       {"user_id": 8, "pet_type_id": 3, "name": "pet24", "goal_amt": 300, "goal_name": "Cash"},
       {"user_id": 9, "pet_type_id": 1, "name": "pet25", "goal_amt": 100, "goal_name": "Stuff"},
       {"user_id": 9, "pet_type_id": 2, "name": "pet26", "goal_amt": 200, "goal_name": "Things"},
-      {"user_id": 9, "pet_type_id": 3, "name": "pet27", "goal_amt": 300, "goal_name": "Cash"},
+      {"user_id": 9, "pet_type_id": 3, "name": "pet27", "goal_amt": 300, "goal_name": "Cash"}
     ],
     "Item": [
       {"pet_type_id": 1, "type": "food", "name": "berries", "image": {"src": "http://res.cloudinary.com/bearquarium/image/upload/c_scale,w_150/v1485630957/berries_yonlsl.png"}, "cost": 10, "effect": 1},
@@ -515,7 +515,7 @@
       {"user_id": 9, "pet_id": 26, "item_id": 15, "pending": true, "amount": 15},
       {"user_id": 9, "pet_id": 27, "item_id": 16, "pending": true, "amount": 5},
       {"user_id": 9, "pet_id": 27, "item_id": 17, "pending": true, "amount": 10},
-      {"user_id": 9, "pet_id": 27, "item_id": 18, "pending": true, "amount": 15},
+      {"user_id": 9, "pet_id": 27, "item_id": 18, "pending": true, "amount": 15}
 
     ]
   }
