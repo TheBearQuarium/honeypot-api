@@ -46,7 +46,7 @@ class V1BankTokensController extends Nodal.Controller {
             source: bank_account_token
           }, function (err, customer) {
             if (err) {
-              console.log(err);
+              console.warn(err);
             } else {
               const newToken = {
                 user_id: user_id,

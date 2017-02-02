@@ -32,6 +32,9 @@ class V1TransactionsController extends Nodal.Controller {
     Transaction.query()
     .where({ 'user_id__is': user, 'pending': true })
     .end((err, transactionModels) => {
+      if (err => {
+        console.warn(err);
+      });
       if (transactionModels.length) {
         const pendingAmount = transactionModels.map(model => {
           return model._data.amount;
