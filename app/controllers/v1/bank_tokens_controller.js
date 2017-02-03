@@ -33,7 +33,6 @@ class V1BankTokensController extends Nodal.Controller {
     const user_id = this.params.body.user_id;
     const type = this.params.body.type;
     const name = this.params.body.name;
-
     const context = this;
 
     plaidClient.exchangeToken(public_token, account_id, function(err, res) {

@@ -30,6 +30,10 @@ class V1TransactionsController extends Nodal.Controller {
     Transaction.query()
     .where({ user_id__is: user, pending: true })
     .end((err, transactionModels) => {
+
+      if (err => {
+        console.warn(err);
+      });
       if (transactionModels.length) {
         const pendingAmount = transactionModels.map(model => model._data.amount)
         .reduce((total, current) => total + current);
@@ -46,13 +50,18 @@ class V1TransactionsController extends Nodal.Controller {
             currency: 'usd',
             customer: checking,
           });
-          // stripe.transfers.create({
-          //   amount: total,
-          //   currency: 'usd',
-          //   destination: 'default_for_currency',
-          // },
-          //   { stripe_account: savings }
-          // );
+          /*
+          * UNCOMMENT WHEN TRANSFERS ARE AVAILABLE;
+          * INSUFFICIENT FUNDS ARE THROWING AN ERROR
+          *
+          * stripe.transfers.create({
+          *   amount: total,
+          *   currency: 'usd',
+          *   destination: 'default_for_currency',
+          * },
+          *   { stripe_account: savings }
+          * );
+          */
         }
       }
       Transaction.create(newBody.body, (err, model) => {
