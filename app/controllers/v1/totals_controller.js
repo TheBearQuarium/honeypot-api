@@ -10,13 +10,9 @@ class V1TotalsController extends Nodal.Controller {
       .where(this.params.query)
       .end((err, models) => {
         let total = 0;
-        models.forEach(model => {
-          console.log(total);
-          total += model._data.amount });
+        models.forEach(model => { total += model._data.amount; });
         this.respond(err || { total });
-      })
-    // this.respond({message: `GET request to ${this.constructor.name}`});
-
+      });
   }
 
   post() {

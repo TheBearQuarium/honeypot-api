@@ -10,7 +10,6 @@ const Transaction = Nodal.require('app/models/transaction.js');
 class V1PetStatsController extends Nodal.Controller {
 
   get() {
-    // lol prepare to enter the rat's nest
     // get pet -- should query by ID
     Pet.query()
       .where(this.params.query)
@@ -44,60 +43,45 @@ class V1PetStatsController extends Nodal.Controller {
             transactionModels.forEach(model => {
               // add amount spent to total
               total += model._data.amount;
-
-
               // calculate hunger/happiness levels
               const itemData = model._joinsCache.item._data;
               const petData = model._joinsCache.pet._data;
               const data = model._data;
-
               const date = new Date(data.created_at);
               // first iteration - start at pet creation
               if (!prevDate) prevDate = new Date(petData.created_at);
-
               // get time between interactions
               const diff = date - prevDate;
-
               // turn into hours
               const hh = Math.floor(diff / 1000 / 60 / 60);
-
               // reduce hunger and happiness by time
               if (hh > 0) {
                 hunger -= hh * 2;
                 happiness -= hh * 2;
               }
-
               // no negative states
               if (hunger < 0) hunger = 0;
               if (happiness < 0) happiness = 0;
-
               // update state based on item bought
               if (itemData.type === 'food') {
                 hunger += itemData.effect * 10;
               } else if (itemData.type === 'accessory') {
                 happiness += itemData.effect * 10;
-
                 // check if accessory is valid in inventory
                 const expDate = new Date(date.valueOf() + (7 * 24 * 60 * 60 * 1000));
-
                 if (new Date().valueOf() <= expDate.valueOf()) {
                   accessories[itemData.name] = true;
                   accessories[`${itemData.name}Time`] = expDate.valueOf();
                 }
-
               } else {
                 happiness += itemData.effect * 10;
                 hunger += itemData.effect * 5;
               }
-
               // cap at 100
               if (hunger > 100) hunger = 100;
               if (happiness > 100) happiness = 100;
-
-
               prevDate = date;
             });
-
             // run one last subtraction from current date
             const date = new Date();
             const diff = date - prevDate;
@@ -108,8 +92,6 @@ class V1PetStatsController extends Nodal.Controller {
             }
             if (hunger < 0) hunger = 0;
             if (happiness < 0) happiness = 0;
-
-
             // INCLUDE THESE VALUES IN RESPONSE
             petModels[0]._data.goal_progress = total;
             petModels[0]._data.happiness = happiness;

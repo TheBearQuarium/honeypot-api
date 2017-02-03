@@ -23,26 +23,17 @@ class V1TransactionsController extends Nodal.Controller {
   create() {
     const amount = this.params.body.amount;
     const checking = this.params.body.checking;
-    const savings = this.params.body.savings;
-    const context = this;
-    let pending = this.params.body.pending;
+    const pending = this.params.body.pending;
     const user = this.params.body.user_id;
-    let newBody = this.params;
+    const newBody = this.params;
 
-    console.log('transaction is being created');
     Transaction.query()
-    .where({ 'user_id__is': user, 'pending': true })
+    .where({ user_id__is: user, pending: true })
     .end((err, transactionModels) => {
-      console.log('shits happening heres pending: ', pending);
-      console.log('then: ', transactionModels.length);
       if (transactionModels.length) {
-        const pendingAmount = transactionModels.map(model => {
-          return model._data.amount;
-        }).reduce((total, current) => {
-          return total += current;
-        });
+        const pendingAmount = transactionModels.map(model => model._data.amount)
+        .reduce((total, current) => total + current);
         const total = pendingAmount + amount;
-        console.log('total: ', total);
         if (total >= 500) {
           newBody.body.pending = false;
           transactionModels.forEach(item => {
@@ -64,12 +55,10 @@ class V1TransactionsController extends Nodal.Controller {
           // );
         }
       }
-      console.log('what we create with: ', newBody.body);
       Transaction.create(newBody.body, (err, model) => {
         this.respond(err || model);
       });
     });
-    console.log('after query');
   }
 
   update() {

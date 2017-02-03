@@ -32,13 +32,13 @@ class UsersController extends Nodal.Controller {
       .where({ username__is: this.params.body.username })
       .end((err, models) => {
         if (models.length) {
-          this.respond('username taken')
+          this.respond('username taken');
         } else {
           User.create(this.params.body, (err, model) => {
             this.respond(err || model);
           });
         }
-      })
+      });
 
   }
 

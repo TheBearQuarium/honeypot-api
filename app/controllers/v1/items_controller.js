@@ -11,7 +11,15 @@ class V1ItemsController extends Nodal.Controller {
       .where(this.params.query)
       .end((err, models) => {
 
-        this.respond(err || models, ['id', 'name', 'cost', 'type', 'effect', 'image', {'petType': ['name']}]);
+        this.respond(err || models, [
+          'id',
+          'name',
+          'cost',
+          'type',
+          'effect',
+          'image',
+          { petType: ['name'] },
+        ]);
 
       });
 
