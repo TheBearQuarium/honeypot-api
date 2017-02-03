@@ -29,12 +29,12 @@ class V1TransactionsController extends Nodal.Controller {
     const user = this.params.body.user_id;
     let newBody = this.params;
 
-    console.log('transaction is being created');
     Transaction.query()
     .where({ 'user_id__is': user, 'pending': true })
     .end((err, transactionModels) => {
-      console.log('shits happening heres pending: ', pending);
-      console.log('then: ', transactionModels.length);
+      if (err => {
+        console.warn(err);
+      });
       if (transactionModels.length) {
         const pendingAmount = transactionModels.map(model => {
           return model._data.amount;
@@ -42,7 +42,6 @@ class V1TransactionsController extends Nodal.Controller {
           return total += current;
         });
         const total = pendingAmount + amount;
-        console.log('total: ', total);
         if (total >= 500) {
           newBody.body.pending = false;
           transactionModels.forEach(item => {
@@ -55,21 +54,24 @@ class V1TransactionsController extends Nodal.Controller {
             currency: 'usd',
             customer: checking,
           });
-          // stripe.transfers.create({
-          //   amount: total,
-          //   currency: 'usd',
-          //   destination: 'default_for_currency',
-          // },
-          //   { stripe_account: savings }
-          // );
+          /*
+          * UNCOMMENT WHEN TRANSFERS ARE AVAILABLE;
+          * INSUFFICIENT FUNDS ARE THROWING AN ERROR
+          *
+          * stripe.transfers.create({
+          *   amount: total,
+          *   currency: 'usd',
+          *   destination: 'default_for_currency',
+          * },
+          *   { stripe_account: savings }
+          * );
+          */
         }
       }
-      console.log('what we create with: ', newBody.body);
       Transaction.create(newBody.body, (err, model) => {
         this.respond(err || model);
       });
     });
-    console.log('after query');
   }
 
   update() {

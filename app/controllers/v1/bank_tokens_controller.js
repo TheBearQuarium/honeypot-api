@@ -33,20 +33,11 @@ class V1BankTokensController extends Nodal.Controller {
     const user_id = this.params.body.user_id;
     const type = this.params.body.type;
     const name = this.params.body.name;
-
-    // BankToken.query()
-    //   .where(this.params.query)
-    //   .end((err, models) => {
-    //
-    //     this.respond(err || models);
-    //
-    //   });
-
     const context = this;
 
     plaidClient.exchangeToken(public_token, account_id, function(err, res) {
       if (err != null) {
-        console.log(err);
+        console.warn(err);
       } else {
         const access_token = res.access_token;
         const bank_account_token = res.stripe_bank_account_token;
@@ -55,7 +46,7 @@ class V1BankTokensController extends Nodal.Controller {
             source: bank_account_token
           }, function (err, customer) {
             if (err) {
-              console.log(err);
+              console.warn(err);
             } else {
               const newToken = {
                 user_id: user_id,
@@ -89,7 +80,7 @@ class V1BankTokensController extends Nodal.Controller {
             },
           }, function (err, account) {
             if (err) {
-              console.log(err);
+              console.warn(err);
             } else {
               const newToken = {
                 user_id: user_id,
@@ -107,11 +98,6 @@ class V1BankTokensController extends Nodal.Controller {
     });
   }
   update() {
-    // BankToken.update(this.params.route.id, this.params.body, (err, model) => {
-    //
-    //   this.respond(err || model);
-    //
-    // });
     const public_token = this.params.body.public_token;
     const account_id = this.params.body.account_id;
     const user_id = this.params.body.user_id;
@@ -122,7 +108,7 @@ class V1BankTokensController extends Nodal.Controller {
 
     plaidClient.exchangeToken(public_token, account_id, function(err, res) {
       if (err != null) {
-        console.log(err);
+        console.warn(err);
       } else {
         const access_token = res.access_token;
         const bank_account_token = res.stripe_bank_account_token;
@@ -131,7 +117,7 @@ class V1BankTokensController extends Nodal.Controller {
             source: bank_account_token
           }, function (err, customer) {
             if (err) {
-              console.log(err);
+              console.warn(err);
             } else {
               const newToken = {
                 user_id: user_id,
@@ -165,7 +151,7 @@ class V1BankTokensController extends Nodal.Controller {
             },
           }, function (err, account) {
             if (err) {
-              console.log(err);
+              console.warn(err);
             } else {
               const newToken = {
                 user_id: user_id,
