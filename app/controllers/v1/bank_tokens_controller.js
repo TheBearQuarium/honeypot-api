@@ -43,17 +43,17 @@ class V1BankTokensController extends Nodal.Controller {
         const bank_account_token = res.stripe_bank_account_token;
         if (type === 'checking') {
           stripe.customers.create({
-            source: bank_account_token
+            source: bank_account_token,
           }, function (err, customer) {
             if (err) {
               console.warn(err);
             } else {
               const newToken = {
-                user_id: user_id,
-                type: type,
-                name: name,
+                user_id,
+                type,
+                name,
                 token: customer.id,
-              }
+              };
               BankToken.create(newToken, (err, model) => {
                 context.respond(err || model);
               });
@@ -83,11 +83,11 @@ class V1BankTokensController extends Nodal.Controller {
               console.warn(err);
             } else {
               const newToken = {
-                user_id: user_id,
-                type: type,
-                name: name,
-                token: account.id
-              }
+                user_id,
+                type,
+                name,
+                token: account.id,
+              };
               BankToken.create(newToken, (err, model) => {
                 context.respond(err || model);
               });
@@ -120,11 +120,11 @@ class V1BankTokensController extends Nodal.Controller {
               console.warn(err);
             } else {
               const newToken = {
-                user_id: user_id,
-                type: type,
-                name: name,
+                user_id,
+                type,
+                name,
                 token: customer.id,
-              }
+              };
               BankToken.update(context.params.route.id, newToken, (err, model) => {
                 context.respond(err || model);
               });
@@ -154,11 +154,11 @@ class V1BankTokensController extends Nodal.Controller {
               console.warn(err);
             } else {
               const newToken = {
-                user_id: user_id,
-                type: type,
-                name: name,
+                user_id,
+                type,
+                name,
                 token: account.id,
-              }
+              };
               BankToken.update(context.params.route.id, newToken, (err, model) => {
                 context.respond(err || model);
               });

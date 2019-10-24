@@ -23,24 +23,20 @@ class V1TransactionsController extends Nodal.Controller {
   create() {
     const amount = this.params.body.amount;
     const checking = this.params.body.checking;
-    const savings = this.params.body.savings;
-    const context = this;
-    let pending = this.params.body.pending;
+    const pending = this.params.body.pending;
     const user = this.params.body.user_id;
-    let newBody = this.params;
+    const newBody = this.params;
 
     Transaction.query()
-    .where({ 'user_id__is': user, 'pending': true })
+    .where({ user_id__is: user, pending: true })
     .end((err, transactionModels) => {
+
       if (err => {
         console.warn(err);
       });
       if (transactionModels.length) {
-        const pendingAmount = transactionModels.map(model => {
-          return model._data.amount;
-        }).reduce((total, current) => {
-          return total += current;
-        });
+        const pendingAmount = transactionModels.map(model => model._data.amount)
+        .reduce((total, current) => total + current);
         const total = pendingAmount + amount;
         if (total >= 500) {
           newBody.body.pending = false;
